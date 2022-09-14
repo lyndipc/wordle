@@ -3,6 +3,8 @@ package com.example.wordle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import com.example.wordle.FourLetterWordList.getRandomFourLetterWord
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,20 +12,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var buttonTaps = 1
+        var userGuess = findViewById<EditText>(R.id.userGuess)
         val guessButton = findViewById<Button>(R.id.guessButton)
 
         guessButton.setOnClickListener {
             // Check for number of guesses
             if (buttonTaps == 1) {
-                // Pass in user string
+                // Check user's guess against answer
+                checkGuess(userGuess.toString())
                 // Increment guess number
                 buttonTaps++
             } else if (buttonTaps == 2) {
-                // Pass in user string
+                // Check user's guess against answer
+                checkGuess(userGuess.toString())
                 // Increment guess number
                 buttonTaps++
             } else if (buttonTaps == 3) {
-                // Pass in user string to checkGuess()
+                // Check user's guess against answer
+                checkGuess(userGuess.toString())
                 // Reset guess number
                 buttonTaps = 1
             }
@@ -41,6 +47,7 @@ class MainActivity : AppCompatActivity() {
      *   'X' represents a letter not in the target word
      */
     private fun checkGuess(guess: String) : String {
+        val wordToGuess = getRandomFourLetterWord()
         var result = ""
         for (i in 0..3) {
             if (guess[i] == wordToGuess[i]) {
@@ -55,6 +62,4 @@ class MainActivity : AppCompatActivity() {
         }
         return result
     }
-
-
 }
