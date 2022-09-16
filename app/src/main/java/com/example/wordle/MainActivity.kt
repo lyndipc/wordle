@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
             // Check for number of guesses
             if (buttonTaps == 1) {
 
-                android.util.Log.i("User input 1:", userGuess.toString())
+                android.util.Log.i("User input 1:", userGuess.toString().uppercase())
                 // Check user's guess against answer
-                res = checkGuess(userGuess.toString())
+                res = checkGuess(userGuess.toString().uppercase())
 
                 // Set guess check text to reveal results to user
                 android.util.Log.i("First guess", res)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             } else if (buttonTaps == 2) {
 
                 // Check user's guess against answer
-                res = checkGuess(userGuess.toString())
+                res = checkGuess(userGuess.toString().uppercase())
 
                 // Set guess check text to reveal result to user
                 android.util.Log.i("Second guess", res)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             } else if (buttonTaps == 3) {
 
                 // Check user's guess against answer
-                res = checkGuess(userGuess.toString())
+                res = checkGuess(userGuess.toString().uppercase())
 
                 // Set guess check text to reveal result
                 android.util.Log.i("Third guess", res)
