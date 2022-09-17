@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.example.wordle.FourLetterWordList.getRandomFourLetterWord
+import kotlin.concurrent.timer
 
 @Suppress("CascadeIf")
 class MainActivity : AppCompatActivity() {
