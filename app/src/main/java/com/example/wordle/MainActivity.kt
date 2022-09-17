@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.view.isVisible
 import com.example.wordle.FourLetterWordList.getRandomFourLetterWord
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -17,18 +18,24 @@ class MainActivity : AppCompatActivity() {
         var userGuess = findViewById<EditText>(R.id.userGuess).text
         val guessButton = findViewById<Button>(R.id.guessButton)
         var res = ""
+        var finalScore = ""
 
         guessButton.setOnClickListener {
+
             // Check for number of guesses
             if (buttonTaps == 1) {
 
-                android.util.Log.i("User input 1:", userGuess.toString().uppercase())
                 // Check user's guess against answer
                 res = checkGuess(userGuess.toString().uppercase())
 
                 // Set guess check text to reveal results to user
-                android.util.Log.i("First guess", res)
-                findViewById<EditText>(R.id.guessResult1).setText(res)
+                val guess = findViewById<EditText>(R.id.guess1)
+                val result = findViewById<EditText>(R.id.guessResult1)
+
+                guess.text = userGuess
+                guess.isVisible = true
+                result.setText(res)
+                result.isVisible = true
 
                 // Increment guess number
                 buttonTaps++
@@ -38,8 +45,13 @@ class MainActivity : AppCompatActivity() {
                 res = checkGuess(userGuess.toString().uppercase())
 
                 // Set guess check text to reveal result to user
-                android.util.Log.i("Second guess", res)
-                findViewById<EditText>(R.id.guessResult2).setText(res)
+                val guess = findViewById<EditText>(R.id.guess2)
+                val result = findViewById<EditText>(R.id.guessResult2)
+
+                guess.text = userGuess
+                guess.isVisible = true
+                result.setText(res)
+                result.isVisible = true
 
                 // Increment guess number
                 buttonTaps++
@@ -49,26 +61,29 @@ class MainActivity : AppCompatActivity() {
                 res = checkGuess(userGuess.toString().uppercase())
 
                 // Set guess check text to reveal result
-                android.util.Log.i("Third guess", res)
-                findViewById<EditText>(R.id.guessResult3).setText(res)
+                val guess = findViewById<EditText>(R.id.guess3)
+                val result = findViewById<EditText>(R.id.guessResult3)
+
+                guess.text = userGuess
+                guess.isVisible = true
+                result.setText(res)
+                result.isVisible = true
 
                 // If res is not correct display loser text
-
-
-                // else display winner text
+                if (result.toString() == "OOOO") {
+                    finalScore = "You Win! High Score: 1000"
+                } else if (result.toString() == "XXXX") {
+                    finalScore = "Keep practicing! Score: 0"
+                } else {
+                    finalScore = "You're getting there! Score: 500"
+                }
 
                 // Reset guess number
                 buttonTaps = 1
             }
         }
-
-//        userGuess.setOnClickListener {
-//            // Detect how many letters user has typed in
-//
-//            // Disable Guess button if user has too few or too many letters
-//
-//        }
     }
+
 
     private val wordToGuess = getRandomFourLetterWord()
 
