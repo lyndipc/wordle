@@ -7,4 +7,5 @@
     <string name="resultHint">User\'s guess result</string>
     <string name="guessHint">User\'s guess</string>
     <string name="inputHint">Guess a 4-letter word</string>
+    <string name="cloudAlt">Image of a floating cloud</string>
 </resources>
