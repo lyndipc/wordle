@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Wordle</string>
+    <string name="guess1">Guess #1</string>
+    <string name="guess2">Guess #2</string>
+    <string name="guess3">Guess #3</string>
+    <string name="submitAnswer">Submit</string>
+    <string name="resultHint">User\'s guess result</string>
+    <string name="guessHint">User\'s guess</string>
+    <string name="inputHint">Guess a 4-letter word</string>
 </resources>
