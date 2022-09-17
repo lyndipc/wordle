@@ -186,12 +186,13 @@
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:textSize="26sp"
         android:textStyle="bold"
         android:visibility="invisible"
         android:textAlignment="center"
         android:translationZ="100dp"
+        android:background="@color/blue_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -230,5 +231,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/cloud" />
+
+    <Button
+        android:id="@+id/restartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restartText"
+        android:visibility="invisible"
+        android:translationZ="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scoreText"
+        tools:layout_editor_absoluteY="433dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

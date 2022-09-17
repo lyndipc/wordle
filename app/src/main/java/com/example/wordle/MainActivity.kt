@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.text.set
 import androidx.core.view.isVisible
 import com.example.wordle.FourLetterWordList.getRandomFourLetterWord
 import kotlin.concurrent.timer
@@ -23,35 +24,55 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var buttonTaps = 1
-        val userGuess = findViewById<EditText>(R.id.userGuess).text
         val guessButton = findViewById<Button>(R.id.guessButton)
+        val restartButton = findViewById<Button>(R.id.restartButton)
+        val finalText = findViewById<TextView>(R.id.scoreText)
         var res: String
 
         guessButton.setOnClickListener {
             if (buttonTaps == 1) {
                 hideKeyboard(findViewById(R.id.mainView))
 
+                val userGuess = findViewById<EditText>(R.id.userGuess).text
                 res = checkGuess(userGuess.toString().uppercase())
                 formatGuess(userGuess, res, 1)
+                findViewById<EditText>(R.id.userGuess).setText("")
                 buttonTaps++
             } else if (buttonTaps == 2) {
                 hideKeyboard(findViewById(R.id.mainView))
 
+                val userGuess = findViewById<EditText>(R.id.userGuess).text
                 res = checkGuess(userGuess.toString().uppercase())
                 formatGuess(userGuess, res, 2)
+                findViewById<EditText>(R.id.userGuess).setText("")
                 buttonTaps++
             } else if (buttonTaps == 3) {
                 hideKeyboard(findViewById(R.id.mainView))
 
+                val userGuess = findViewById<EditText>(R.id.userGuess).text
                 res = checkGuess(userGuess.toString().uppercase())
                 formatGuess(userGuess, res, 3)
+                findViewById<EditText>(R.id.userGuess).setText("")
 
                 val final = checkWin(res)
-                val finalText = findViewById<TextView>(R.id.scoreText)
                 finalText.text = final
                 finalText.isVisible = true
-                buttonTaps = 1
+
+                restartButton.isVisible = true
             }
+        }
+
+        restartButton.setOnClickListener {
+            // Reset all text and scores
+            restartButton.isVisible = false
+            buttonTaps = 1
+            findViewById<EditText>(R.id.guess1).isVisible = false
+            findViewById<EditText>(R.id.guess2).isVisible = false
+            findViewById<EditText>(R.id.guess3).isVisible = false
+            findViewById<EditText>(R.id.guessResult1).isVisible = false
+            findViewById<EditText>(R.id.guessResult2).isVisible = false
+            findViewById<EditText>(R.id.guessResult3).isVisible = false
+            finalText.isVisible = false
         }
     }
 
