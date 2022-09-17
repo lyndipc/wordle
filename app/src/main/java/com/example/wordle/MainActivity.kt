@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 res = checkGuess(userGuess.toString().uppercase())
                 formatGuess(userGuess, res, 3)
                 findViewById<EditText>(R.id.userGuess).setText("")
+                guessButton.isEnabled = false
 
                 val final = checkWin(res)
                 finalText.text = final
@@ -138,11 +139,11 @@ class MainActivity : AppCompatActivity() {
         for (i in 0..3) {
             // If res is not correct display loser text
             finalScore = if (result == "OOOO") {
-                "You Win! High Score: 1000"
+                "${wordToGuess}\nYou Win! High Score: 1000"
             } else if (result == "XXXX") {
-                "Keep practicing! Score: 0"
+                "${wordToGuess}\nKeep practicing! Score: 0"
             } else {
-                "You're getting there! Score: 500"
+                "${wordToGuess}\nYou're getting there! Score: 500"
             }
         }
 
