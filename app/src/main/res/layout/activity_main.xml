@@ -5,6 +5,7 @@
     android:background="@color/purple_200"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainView"
     tools:context=".MainActivity">
 
     <EditText
@@ -162,5 +163,18 @@
         app:layout_constraintTop_toBottomOf="@+id/guess3"
         app:layout_constraintVertical_bias="0.50" />
 
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:background="@drawable/ic_launcher_background"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
