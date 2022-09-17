@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -12,79 +13,57 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.example.wordle.FourLetterWordList.getRandomFourLetterWord
 
+@Suppress("CascadeIf")
 class MainActivity : AppCompatActivity() {
+    private val wordToGuess = getRandomFourLetterWord()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         var buttonTaps = 1
-        var userGuess = findViewById<EditText>(R.id.userGuess).text
+        val userGuess = findViewById<EditText>(R.id.userGuess).text
         val guessButton = findViewById<Button>(R.id.guessButton)
-        var res = ""
+        var res: String
 
         guessButton.setOnClickListener {
-
-            // Check for number of guesses
             if (buttonTaps == 1) {
                 hideKeyboard(findViewById(R.id.mainView))
 
-                // Check user's guess against answer
                 res = checkGuess(userGuess.toString().uppercase())
-
-                // Set guess check text to reveal results to user
-                val guess = findViewById<EditText>(R.id.guess1)
-                val result = findViewById<EditText>(R.id.guessResult1)
-
-                guess.text = userGuess
-                guess.isVisible = true
-                result.setText(res)
-                result.isVisible = true
-
-                // Increment guess number
+                formatGuess(userGuess, res, 1)
                 buttonTaps++
             } else if (buttonTaps == 2) {
                 hideKeyboard(findViewById(R.id.mainView))
 
-                // Check user's guess against answer
                 res = checkGuess(userGuess.toString().uppercase())
-
-                // Set guess check text to reveal result to user
-                val guess = findViewById<EditText>(R.id.guess2)
-                val result = findViewById<EditText>(R.id.guessResult2)
-
-                guess.text = userGuess
-                guess.isVisible = true
-                result.setText(res)
-                result.isVisible = true
-
-                // Increment guess number
+                formatGuess(userGuess, res, 2)
                 buttonTaps++
             } else if (buttonTaps == 3) {
                 hideKeyboard(findViewById(R.id.mainView))
 
-                // Check user's guess against answer
                 res = checkGuess(userGuess.toString().uppercase())
+                formatGuess(userGuess, res, 3)
 
-                // Set guess check text to reveal result
-                val guess = findViewById<EditText>(R.id.guess3)
-                val result = findViewById<EditText>(R.id.guessResult3)
-
-                guess.text = userGuess
-                guess.isVisible = true
-                result.setText(res)
-                result.isVisible = true
-
-                val final = checkWin(result.toString())
-                android.util.Log.i("final", final)
-
+                val final = checkWin(res)
                 val finalText = findViewById<TextView>(R.id.scoreText)
                 finalText.text = final
                 finalText.isVisible = true
-
-                // Reset guess number
                 buttonTaps = 1
             }
         }
+    }
+
+    private fun formatGuess(userGuess: Editable, res: String, num: Int) {
+        val g = "guess${num}"
+        val r = "guessResult${num}"
+        val guess = findViewById<EditText>(resources.getIdentifier(g, "id", packageName))
+        val result = findViewById<EditText>(resources.getIdentifier(r, "id", packageName))
+
+        guess.text = userGuess
+        guess.isVisible = true
+        result.setText(res)
+        result.isVisible = true
     }
 
     private fun checkWin(result: String): String {
@@ -92,9 +71,9 @@ class MainActivity : AppCompatActivity() {
 
         for (i in 0..3) {
             // If res is not correct display loser text
-            finalScore = if (result.toString() == "OOOO") {
+            finalScore = if (result == "OOOO") {
                 "You Win! High Score: 1000"
-            } else if (result.toString() == "XXXX") {
+            } else if (result == "XXXX") {
                 "Keep practicing! Score: 0"
             } else {
                 "You're getting there! Score: 500"
@@ -109,9 +88,6 @@ class MainActivity : AppCompatActivity() {
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
-
-    private val wordToGuess = getRandomFourLetterWord()
 
     /**
      * Parameters / Fields:
