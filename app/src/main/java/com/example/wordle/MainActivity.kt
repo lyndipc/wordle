@@ -54,6 +54,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Parameters / Fields:
+     *   wordToGuess : String - the target word the user is trying to guess
+     *   userGuess : Editable - what the user entered as their guess
+     *   res: String - the resulting 4-character combination of
+     *      'O', '+', and/or 'X'
+     *   num: Int - the number guess that the player is on
+     */
     private fun formatGuess(userGuess: Editable, res: String, num: Int) {
         val g = "guess${num}"
         val r = "guessResult${num}"
@@ -66,6 +74,42 @@ class MainActivity : AppCompatActivity() {
         result.isVisible = true
     }
 
+    /**
+     * Parameters / Fields:
+     *   wordToGuess : String - the target word the user is trying to guess
+     *   guess : String - what the user entered as their guess
+     *
+     * Returns a String of 'O', '+', and 'X', where:
+     *   'O' represents the right letter in the right place
+     *   '+' represents the right letter in the wrong place
+     *   'X' represents a letter not in the target word
+     */
+    private fun checkGuess(guess: String): String {
+        var result = ""
+        for (i in 0..3) {
+            result += if (guess[i] == wordToGuess[i]) {
+                "O"
+            } else if (guess[i] in wordToGuess) {
+                "+"
+            } else {
+                "X"
+            }
+        }
+        return result
+    }
+
+    /**
+     * Parameters / Fields:
+     *   result : String - contains 4 character string where:
+     *   'O' represents the right letter in the right place
+     *   '+' represents the right letter in the wrong place
+     *   'X' represents a letter not in the target word
+     *
+     * Returns a String of:
+     *  "You Win! High Score: 1000",
+     *  "Keep practicing! Score: 0",
+     *  or "You're getting there! Score: 500"
+     */
     private fun checkWin(result: String): String {
         var finalScore = ""
 
@@ -83,36 +127,12 @@ class MainActivity : AppCompatActivity() {
         return finalScore
     }
 
+    /**
+     * Helper function to hide soft keyboard
+     */
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    /**
-     * Parameters / Fields:
-     *   wordToGuess : String - the target word the user is trying to guess
-     *   guess : String - what the user entered as their guess
-     *
-     * Returns a String of 'O', '+', and 'X', where:
-     *   'O' represents the right letter in the right place
-     *   '+' represents the right letter in the wrong place
-     *   'X' represents a letter not in the target word
-     */
-    private fun checkGuess(guess: String): String {
-        android.util.Log.i("Word", wordToGuess)
-        var result = ""
-        for (i in 0..3) {
-            android.util.Log.i("guess[i] = ", guess[i].toString())
-            android.util.Log.i("wordToGuess[i]", wordToGuess[i].toString())
-            result += if (guess[i] == wordToGuess[i]) {
-                "O"
-            } else if (guess[i] in wordToGuess) {
-                "+"
-            } else {
-                "X"
-            }
-        }
-        return result
     }
 }
